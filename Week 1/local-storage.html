@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Local Storage</title>
+	<style type="text/css">
+		.validation{ color: red; }
+	</style>
+	<script type="text/javascript">
+	window.addEventListener("load", () => {
+
+		/*
+		Browsers have a very simple database built into them.
+		It's not a relational database, rather a key/value database
+		(Databases that are not relational are known as No-SQL databases)
+		
+		Here's an example of a key/value database:
+		
+		KEY 			Value
+		---------------------------
+		firstName 		"Bob"
+		lastName 		"Smith"
+		age 			"7"
+		cats 			"['Bunny', 'Fanny', 'Willis']"
+		dogs 			"[{name:'Brutus', age:7},{name:'Marty', age:2}]"
+
+		The key serves as an identifier for the data stored in the value
+		So if you were to get value of the 'lastName' key, you would get "Smith".
+		If you were to get the value of the 'age' key, you would get "7"
+		(Remember that both the keys and the values are strings)
+
+		The last to keys (cats and dogs) are storing strings, but we can use the JSON
+		API to convert them to arrays. So although key/value database seem very simple,
+		and not super useful on the surface, they are actually very powerful because
+		they can store JSON strings. 
+		
+		Your browser can create a key/value database for each domain that you visit
+		So if you visit a page www.example.com and the JavaScript in it stores data in localStorage,
+		then the data will be available to any page that you visit on the www.example.com server. 
+
+
+		The localStorage object has a pretty simple API:
+
+		setItem(key, value)			sets a key/value pair
+		getItem(key)				returns the value for a key
+		key(index)					returns the key name at the specified index
+		clear()						Clears all key/value pairs from the database
+		*/
+
+
+		// STEP 1 - Putting Data into the localStorage database
+		// Let's go ahead create a key/value database like the one in the diagram
+		// localStorage.setItem("firstName", "Bob");
+		// localStorage.setItem("lastName", "Smith");
+		// localStorage.setItem("age", 7);
+
+		//const age = parseInt(localStorage.getItem("age")); 
+		//alert(typeof age);
+
+
+
+
+		// Now open the developer tools in the browser and look in the Applications tab.
+		// You'll see the key/value databases that have been created on the left
+		// Click on the one for localhost (or maybe file://)
+		// You should see the key/value pairs that we added.
+
+
+		// You can comment out the lines of code above, since the data is now in the browsers localStorage
+		
+
+		// STEP 2 - Retrieving Data from localStorage
+		// Let's retreive all the key/value pairs from the database
+		for(let i = 0; i < localStorage.length; i++){
+			const keyStr = localStorage.key(i);
+			console.log(keyStr);
+			const valueStr = localStorage.getItem(keyStr);
+			console.log(valueStr);
+		}
+
+
+
+		// Step 3 -  Clearing localStorage
+
+		document.getElementById("btnClearStorage").addEventListener("click", () => {
+			localStorage.clear();
+		});
+		
+		// Limitations of Local Storage:
+		// 	You can only key/value pairs as strings 
+		// 	If a user clears the browsing data, the local storage will be removed. 
+		// 	Max capacity is 5mb. 
+		// 	Is not cross-device, if a user entered in a value on their computer, then went to the site on their phone, their values would not be shown on the phone.
+		
+		
+		
+
+		// Step 4 - Practice storing and retreiving JSON strings in localStorage
+		// JSON allows you to encode complex javascript arrays and objects as strings
+		// So, we can 'stringify' an object or array and then store it as the value in a key/value database
+		let users = [
+			{id: 7, firstName:"Bob", lastName:"Smith", email:"bob@smith.com", password:"test", roleId:1, active: true},
+			{id: 96, firstName:"Betty", lastName:"Smith", email:"betty@smith.com", password:"test", roleId:2, active: true},
+			{id: 33, firstName:"Barney", lastName:"Smith", email:"barney@smith.com", password:"test", roleId:1, active: false}
+		];
+
+		let userJSON = JSON.stringify(users);
+		localStorage.setItem("users", userJSON);
+		// OR localStorage.setItem("users", JSON.stringify(users));
+
+
+		//pull the string out of localstorage
+		const str = localStorage.getItem("users");
+		// parse the string into an array of user objects
+		users = JSON.parse(str);
+		console.log(users);
+
+		users.forEach((u) => {console.log(u)});
+
+		// Create a getAllUsers() function
+		const getAllUsers = () => {
+			const str = localStorage.getItem("users");
+			return JSON.parse(str);
+		};
+		//localStorage.clear();
+		console.log(getAllUsers());
+
+		// Create a getUserById(id) function
+		
+		const getUserById = (id) => {
+			const str = localStorage.getItem("users");
+			const allUsers = JSON.parse(str);
+			let u;
+
+			allUsers.forEach((ce) => { //ce == current element
+				if(id == ce.id){
+					u = ce;
+				}
+			});
+			
+			return u;
+		};
+		
+		console.log(getUserById(7));
+		
+
+	});
+
+	</script>
+</head>
+<body>
+	<input type="button" id="btnClearStorage" value="Clear Local Storage">
+</body>
+</html>
