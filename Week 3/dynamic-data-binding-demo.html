@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Data Binding</title>
+	<style type="text/css">
+		#user-form label{
+			display: block;
+		}
+
+		#txtData{
+			width: 100%;
+			height: 200px;
+		}
+
+		.flex-container{
+			display: flex;
+		}
+
+		.flex-container > div {
+			width: 50%;
+		}
+	</style>
+	<script>
+	window.addEventListener("load", () => {
+		// Get a handle on the UI elements in the form	
+		const userForm = document.querySelector("#user-form");
+		const txtFirstName = userForm.querySelector("[name=firstName]");
+		const txtLastName = userForm.querySelector("[name=lastName]");
+		const txtEmail = userForm.querySelector("[name=email]");
+		const txtPassword = userForm.querySelector("[name=password]");
+		const selRole = userForm.querySelector("[name=role]");
+		const chkActive = userForm.querySelector("[name=active]");
+		//console.log(txtFirstName, txtLastName, txtEmail, selRole, chkActive);
+
+		// Get a handle on the text area 
+		const txtData = document.querySelector("#txtData");
+		//console.log(btnBind, txtData);
+
+		txtData.addEventListener("change", () => {
+			let data = null;
+			try{
+				data = txtData.value.trim();
+				//console.log(data);
+				data = JSON.parse(data);
+				//console.log(data);
+				bindUserToUI(data);
+			}catch(e){
+				console.log("Error Parsing JSON", e);
+			}
+			
+
+		})
+
+
+		const bindUserToUI = (user) => {
+			try{
+				txtFirstName.value = user.firstName;
+				txtLastName.value = user.lastName;
+				txtEmail.value = user.email;
+				txtPassword.value = user.password;
+				selRole.value = user.role;
+				chkActive.checked = user.active;
+			}catch(e){
+				console.log("Error binding user to UI", e);
+			}
+		}
+
+
+		userForm.addEventListener("submit", (evt) => {
+			evt.preventDefault();
+			const user = bindDataFromUI();
+			txtData.value = JSON.stringify(user, null, 2); // The third param sets the number of spaces to use for pretty formatting
+		});
+
+		const bindDataFromUI = () => {
+			const user = {};
+			user.firstName = txtFirstName.value;
+			user.lastName = txtLastName.value;
+			user.email = txtEmail.value;
+			user.password = txtPassword.value;
+			user.role = parseInt(selRole.value);
+			user.active = chkActive.checked === true || false;
+			return user;
+		}
+
+
+
+	});
+
+	</script>
+</head>
+<body>
+	<h1>Dynamic Data Binding</h1>
+	<div class="flex-container">
+		<div>
+			<form id="user-form">
+			  
+			    <label>First Name:</label>
+			    <input type="text" name="firstName" value="Bob" />
+			    <span class="validation" name="vFirstName"></span>
+			  
+			  
+			    <label>Last Name:</label>
+			    <input type="text" name="lastName" value="Smith" />
+			    <span class="validation" name="vLastName"></span>
+			  
+			  
+			    <label>Email:</label>
+			    <input type="email" name="email" value="b@s.com">
+			    <span class="validation" name="vEmail"></span>
+			  
+			  
+			    <label>Password:</label>
+			    <input type="password" name="password" value="test123" />
+			    <span class="validation" name="vPassword"></span>
+			  
+			  
+			    <label>Role:</label>
+			    <select name="role">
+			      <option value="1">Admin</option>
+			      <option value="2" selected>Customer</option>
+			      <option value="3">Rep</option>
+			    </select>
+			  
+			  
+			    <label>
+			      Active:
+			      <input type="checkbox" name="active" checked>
+			    </label>
+			  
+			  
+			    <input type="submit" value="SAVE">
+			  
+			</form>
+			<p>Data binding goes two ways:</p>
+			<ul>
+				<li>Data from an object is bound to a form</li>
+				<li>Input from a form is bound to the data in an object</li>
+			</ul>
+			<p>To see how data binding works in Vue and React:</p>
+			<ul>
+				<li>Change the event handler on the form from "submit" to "change"</li>
+				<li>Change the event handler on the textarea from "change" to "keyup"</li>
+			</ul>
+		</div>
+		<div>
+			<textarea id="txtData">
+{
+  "firstName": "Bob",
+  "lastName": "Smith",
+  "email": "b@s.com",
+  "password": "test123",
+  "role": 2,
+  "active": true
+}
+			</textarea>
+			<p>Whenever you change the object in this textarea, it should update the form.</p>
+		</div>
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JavaScript Destructuring</title>
+        <script>
+
+            //Destructure the Arrays
+            const nameArray = ["Bob", "Sally"];
+            let [a, b, c] = nameArray; // destructure the array to the two variable.
+            console.log(a, b, c);
+            a = "Jim";
+            console.log(a);
+            console.log(nameArray); // when you destructure the array its still inside the array
+
+            const date = "9/19/2023";
+            const [month, day, year] = date.split("/");
+            console.log(month, day, year);
+
+            // const csvData = "1,Bob,23";
+            // const [Id, name, age] = csvData.split(",");
+            // console.log(Id, name, age);
+
+            // Destructuring Objects
+            const person = {name: "Bob", gender: "Male", age: 25};
+            const {name, age} = person;
+            console.log(name, age);
+            //destructure the name and age properties of the person into name and age variable.
+
+            //the parameter is an object that has a name, age, gender property
+            function processPerson({name, age, gender}){
+                console.log(name, age, gender);
+            }
+            processPerson(person);
+            //to call the function pass in an object that has a name, age, gender property
+
+            
+
+
+
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>

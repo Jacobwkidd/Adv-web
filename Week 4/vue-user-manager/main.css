@@ -1,0 +1,11 @@
+form label, input{
+    display:block;
+}
+
+form input[type=submit], input[type=button]{
+    display: inline;
+}
+
+form .validation{
+    color: red;
+}
