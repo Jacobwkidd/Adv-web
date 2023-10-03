@@ -12,10 +12,11 @@ const rootComponent = {
                         v-if="selectedUserId"
                         :userId="selectedUserId"
                         :key="selectedUserId"
-                        @user-form-submitted="handleUserFormSubmitted" />
+                        @user-form-submitted="handleUserFormSubmitted" 
+                        @delete-user="handleDeleteUser" />
                 </div>`, // v-bind:users="users"   ==   :users="users"         Props is = :users then we have users 
     data(){ // : will go through when the code needs to go into javascript :: v-on:click == @click
-        return { // v-if is binding the userId to selectedUserId
+        return { // v-if is binding the userId to selectedUserId and if this is false then it will not send
             users: uda.getAllUsers(),  // users are referncing the users in v-bind 
             selectedUserId: null
         }
@@ -24,15 +25,26 @@ const rootComponent = {
         addUser(){
             // alert("TODO: Add new user");
             // Uncomment the line below to see how Vue is 'reactive':
-            this.users.push({id:4, firstName:"Foo", lastName:"Bar"});
+            // this.users.push({id:4, firstName:"Foo", lastName:"Bar"});
+            this.selectedUserId = -1;
         },
         handleUserSelected(user){
             this.selectedUserId = user.id
             console.log("TODO: Show details for user " + this.selectedUserId);
         },
         handleUserFormSubmitted(user){
-            uda.updateUser(user);
+            if(user.id > 0){
+                uda.updateUser(user);
+            }
+            else{
+                uda.insertUser(user);
+            }
             this.users = uda.getAllUsers();
+        },
+        handleDeleteUser(id){
+            uda.deleteUser(id);
+            this.users = uda.getAllUsers(); // this will refresh the user-list
+            this.selectedUserId = 0; // this will hide the user-form
         }
     }
 };
@@ -99,18 +111,19 @@ app.component("user-form", {
                 </div>
                 <div>
 				    <input type="submit" id="btnSubmit" name="submit button">
+                    <input type="button" value="delete" v-if="userId > 0" @click="handleDeleteClick" />
 				</div>
 			</form>
 		</div>`,
     mounted(){
     	// if the userId prop was passed in, then get the user for that ID
-    	if(this.userId){
-    	   	const user = uda.getUserById(this.userId);
-	    	// initialize all the data members declared for this component
-	    	this.firstName = user.firstName;
-	    	this.lastName = user.lastName;
-	    	this.email = user.email;
-    	}
+        if(this.userId > 0){ // UPDATE THE BOOLEAN EXPRESSION TO  LOOK LIKE THIS
+            const user = uda.getUserById(this.userId);
+            // initialize all the data members declared for this component
+            this.firstName = user.firstName;
+            this.lastName = user.lastName;
+            this.email = user.email;
+        }
     },
     methods:{
     	handleSubmit(){
@@ -124,7 +137,12 @@ app.component("user-form", {
                 email: this.email
             }
             this.$emit('user-form-submitted', user);
-    	}
+    	},
+        handleDeleteClick(){
+            if(confirm(`Are you sure you want to delete ${this.firstName} ${this.lastName}?`)){
+                this.$emit('delete-user', this.userId);
+            }
+        }
     }
 });
 
