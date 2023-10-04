@@ -11,7 +11,7 @@ INSERT INTO `user_roles` (`user_role_id`, `user_role_name`, `user_role_desc`) VA
 CREATE TABLE users (
   user_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_first_name varchar(30) NOT NULL,
-  user_last_name varchar(30) NOT NULL,
+  user_last_name varchar(30) NOT NULL, 
   user_email varchar(100) NOT NULL UNIQUE,
   user_password char(255) NOT NULL,
   user_salt char(32) NOT NULL,
