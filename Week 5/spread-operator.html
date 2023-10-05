@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spread Operator</title>
+    <script>
+        // you can use the spread operator (...) to copy objects and arrays
+        const person = {id: 1, name:"Bob",}; // copying the person down below
+        const personCopy = {...person};
+        console.log(person);
+        console.log(personCopy);
+        person.name = "Silly";
+        console.log(personCopy.name);
+
+
+        const person2 = person; // now I have two variables pointing to the same object
+
+        person2.name = "Fred";
+        console.log(person.name);
+
+        const ar = ["String", "String 2", "String 3"];
+        const arCopy = [...ar];
+        const ar2 = ar;
+
+
+        const x = 3;
+        let y = x;
+        y = 4;
+        console.log(x);
+
+        
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

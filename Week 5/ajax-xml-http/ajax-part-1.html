@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>AJAX Part 1 - XMLHttpRequest</title>
+	<script type="text/javascript">
+		
+		// PUT YOUR JAVASCRIPT CODE HERE
+		const http = new XMLHttpRequest();
+		console.log(http);
+
+		const url = "ajax-request-handler.php";
+		http.open("GET", url);
+
+		http.addEventListener("readystatechange", function(){
+			if(http.readyState == 4 && http.status == 200) {
+				successCallback(http.responseText);
+			}else if(http.readyState == 4){
+				errorCallback(http.status, http.statusText);
+			}
+		});
+
+		const successCallback = (response) => {
+			alert("SUCCESS (here's the response):\n" + response);
+		}
+
+		const errorCallback = (status, msg) => {
+			alert("ERROR\n" + status + "\n" + msg);
+		}
+
+		http.send(); // use the send method
+
+	</script>
+</head>
+<body>
+	<p>
+		This page should be loaded from a web server (not via the file system).
+	</p>
+	<input type="button" name="btnDoGetRequest" value="Do Get Request">
+
+</body>
+</html>
