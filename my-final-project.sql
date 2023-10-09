@@ -52,6 +52,24 @@ CREATE TABLE tenant (
   FOREIGN KEY (tenant_user_id) REFERENCES users(user_id)
 );
 
+INSERT INTO `tenant`(`tenant_user_id`, `tenant_user_first_name`, `tenant_user_last_name`, `tenant_user_email`, `tenant_user_password`,) VALUES 
+(1, "Jif", "Silly", "jifsally@gmail.com", "123"),
+(2, "Jeff" "Jacobson", "jeffjacobson@gmail.com", "123"),
+(3, "Sally", "Green", "sallygreen@gmail.com", "123"),
+(4, "May", "Clausen", "maycleusen@gmail.com", "123"),
+(5, "Alex", "Schiender", "alexsch@gmail.com", "123"),
+(6, "Alec", "Windsor", "alecwindsor@gmail.com", "123"),
+(7, "Alix", "Java", "alixjave@yahoo.com" "123"),
+(8, "Jacob", "Pries", "jacobpries@gmail.com", "123"),
+(9, "Luke", "Brown", "lukebrown@gmail.com", "123"),
+(10, "Matt", "Smith", "mattsmith@gmail.com", "123"),
+(11, "Paul", "Play", "paulplay@gmail.com", "123"),
+(12, "Grace", "Wood", "gracewood@gmail.com", "123"),
+(13, "Carter", "Lockwood", "carterlockwood@gmail.com", "123"),
+(14, "Darth", "Vader", "darthvader@deathstar.com", "123"),
+(15, "Peter", "Walsh", "petrwalsh@england.com", "123"),
+
+
 CREATE TABLE properties(
   property_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   property_address varchar(255) NOT NULL,
@@ -63,6 +81,22 @@ CREATE TABLE properties(
   FOREIGN KEY (tenant) REFERENCES tenant(tenant_user_id)
 );
 
+INSERT INTO `properties`(`property_id`, `property_address`, `property_city`, `property_state`, `property_zip_code`) VALUES 
+(1, ),
+(2,),
+(3,),
+(4,),
+(5,),
+(6,),
+(7,),
+(8,),
+(9,),
+(10,),
+(11,),
+(12,),
+(13,),
+(14,),
+(15,),
 
 CREATE TABLE rent_paid(
   rent_paid_id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
