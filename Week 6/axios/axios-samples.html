@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Axios Tests</title>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
+	<script type="text/javascript"> // importing axios
+	window.addEventListener("load", () => {
+
+		document.getElementById("btn").addEventListener("click", ()=>{
+		
+						
+			// SET UP A MOCK WEB SERVICE (API):
+			// Install the json-server
+			// 		npm i -g json-server
+
+			// Create the user-data.json file
+
+			// Open the terminal and cd to the folder that has the users.json file in it
+			// Then run the server
+			//		npx json-server -w user-data.json 
+
+            // If you want to simulate a slow connection, use the -d option (the delay is in ms)
+            //		npx json-server -w user-data.json -d 3000
+
+            // Here's the tutorial I used to learn about JSON Server:
+			// http://zetcode.com/javascript/jsonserver/
+
+
+            // Let's experiment with the API calls we can make to this web service
+           	// Open a browser and navigate to these urls:
+           	// 		http://localhost:3000/users
+           	// 		http://localhost:3000/users/1
+           	//		http://localhost:3000/users/?first_name=Robert
+			//		http://localhost:3000/users/?first_name=Robert&last_name=Brown
+			//		http://localhost:3000/users/?q=gmail
+			//		http://localhost:3000/users?_sort=last_name&_order=asc
+			//		http://localhost:3000/users?id_gte=4
+			//		http://localhost:3000/users?id_gte=3&id_lte=5
+
+
+			// Notice that every time we try a new URL (API call), the page reloads.
+			
+			// We want to be able to fetch the data without leaving the page
+			// (Remember, we are making a single page web app)
+			
+			// We want to be able to make HTTP requests without leaving the page we're on.
+			// In order to do this, we'll use a JavaScript library called Axios
+			// We could do this without a library, but the JavaScript code gets a little hairy
+			// If you are interested, look up the XMLHttpRequest object in JavaScript
+			// Axios uses the XMLHTTPRequest object under the hood
+			
+			// When you make these types of requests (without leaving the page), they are known at AJAX calls
+			// AJAX = Asynchronous JavaScript And XML
+			// In the old days, these calls were used to fetch XML formatted data.
+			// But nowadays web services (APIs) usually return data in JSON formatting.
+
+			// Here's the Axios offical page:
+			// 		https://github.com/axios/axios
+
+			// Axios uses JavaScript promises (which we can talk about later)
+			// When using promises you use method chaining to chain then() and catch() methods
+			// to the axios method that you are calling.
+			// For example:
+			//		axios.post(url).then().catch()
+			//
+			// You pass arrow functions as params to then() and catch()
+			// If the request is successful, the arrow function you pass into then() will be invoked
+			// If the request fails, the arrow function you pass into catch() will be invoked.
+            
+			// GET REQUESTS (For selecting/reading data from the server)
+			let url = "http://localhost:3000/users";
+			// url = "http://localhost:3000/users/2";
+			//when this request is completes then it will call this function
+			axios.get(url).then((response) => {
+				console.log(response.data);
+			});
+
+			axios.get("dsaf")
+				.then(() => {
+
+				}).catch((err) => {
+					console.log(err);
+				});
+			
+
+			// Make sure to open the Network tab in the web developer tools to see the request happen behind the scenes
+			// There is a ton of information you can get from the Network tab
+			// Note the Content-Type response header
+			
+
+
+
+			// POST Requests (for inserting/creating data on the server)
+			url = 'http://localhost:3000/users';
+			
+
+			// If you look in the Network tab, you'll see that 
+			// this code actually triggered two request (the first is called a pre-flight check to see if the server allows POSTS)
+					
+
+
+
+			// PUT Requests (for updating data on the server)
+			// Note that the ID of the user to update is in the URL
+			url = 'http://localhost:3000/users/6/';
+			
+
+
+
+			// DELETE Requests (for deleting data on the server)
+			url = 'http://localhost:3000/users/7/';
+			
+
+
+			
+			//Setting Request Headers
+			//You can add request headers by passing in an additional 'options' param to the axios method you are calling:
+			url = 'http://localhost:3000/users';
+			
+			const options = {
+				headers: {Accept: "application/xml"}
+			};
+			// Note that by setting the Accept header in the request, you are telling the server that you want the data formatted as XML
+			// But JSON server ignores this, and sends the data in JSON
+			// A robust API will return it's data in various formats
+
+			
+
+	  		// Make sure to look at the request in the Network tab of the dev tools
+	  		// and verify that the Accept header was set properly
+
+
+			// Getting Response Headers
+			url = 'http://localhost:3000/users';
+
+			
+
+			
+            // Setting defaults for all requests
+            // Use the create() method to create an axios instance
+            // the configures default settings for all requests made with that instance
+            const instance = axios.create({
+			  baseURL: 'http://localhost:3000',
+			  timeout: 6000,
+			  headers: {'X-Custom-Header': 'foobar'}
+			});
+           	// Now you don't have to specify the full URL in each request
+
+
+
+
+			// CORS requests (cross-origin requests)
+			// When the page requesting the data is on a different server than the web service        
+			// (This will cause us lots of headaches!)
+
+			// For example, if the URL of the page making the request is
+			//		http://www.acme.com/axios.html
+			// And the URL of the API is:
+			//		http://www.acme.com/api
+			// The two are considered to be the same origin (http://www.acme.com)
+
+			// Here are some examples of cross-origin requests:
+			// Requesting Page				Responding API
+			// --------------------------------------------------------------
+			// http://www.acme.com 			https://www.acme.com
+			// http://acme.com 				http://www.acme.com
+			// http://acme.com 				http://acme.com:8080
+
+			// By default, many web services do not allow CORS
+			// So we need to be careful to set up our web service to allow some, but not others
+
+
+		});
+
+
+	});
+	</script>
+</head>
+<body>
+	<input type="button" value="do HTTP request" id="btn">
+</body>
+</html>

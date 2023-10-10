@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue User Manager - MUTATES PROP!</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="user-data-access.js"></script>
+</head>
+<body>
+    <!-- The Vue app will get 'mounted' into this div -->
+    <div id="app"></div>
+
+    <!-- imports the Vue library -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <!-- Make sure to include Vue before main.js, this file will contain our JS code-->
+    <script src="main.js"></script>
+
+    <p>
+        This is how I originally went about building the User Manager.
+        I thought it made sense to pass the selected user as a prop to UserForm rather
+        than the selectedUserId.
+        As I was going down this rabit hole, it led me to break a basic rule of Vue,
+        which is <b>never mutate a prop</b>
+    </p>
+    <p>
+        We could try to avoid breaking this rule by making a copy of
+        of the prop, and storing the property as a data member.
+        this will require use to rename the prop to 'initialUser' instead of 'user'
+        (we'll also have to update the template in the root component).
+        This is actually a solution that is recommended in Vue. For more details,
+        checkout <a href="https://vuejs.org/guide/components/props.html#one-way-data-flow">this link</a>.
+        But note that it defaults to showing the code samples using the 'composition api', and
+        we are using the 'options api'. So you can press a toggle switch at the top left of the page to show the 
+        code samples using the options api.
+    </p>
+    <p>
+        Let's try to follow the suggestion and see if we can get the app to work.
+    </p>
+    <p>
+        If you do some googling, you'll find lots of articles about how mutating a prop is an 'anti-pattern'
+        in Vue. Unfortunately, I did not find an article that didn't use NPM for Vue.
+        We'll get to that soon!
+    </p>
+
+</body>
+</html>
