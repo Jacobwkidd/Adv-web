@@ -85,7 +85,7 @@ app.component("user-form", {
         return {
             user: {...this.initialUser}
         }
-    },
+    }, // v-models works with data and makes it react. it's two way binding
     template: `
         <div class="user-form-container">
             <h2>User Details</h2>

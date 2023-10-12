@@ -76,10 +76,10 @@
 			});
 
 			axios.get("dsaf")
-				.then(() => {
-
+				.then(() => { // returns the promise
+					// this is when the get method success
 				}).catch((err) => {
-					console.log(err);
+					console.log(err); // the catch is when it fails
 				});
 			
 
@@ -92,7 +92,18 @@
 
 			// POST Requests (for inserting/creating data on the server)
 			url = 'http://localhost:3000/users';
-			
+			const user = {
+				first_name: "Tommy",
+				last_name: "Mitt",
+				email: "tommymitt@gmail.com"
+			}
+				//    url and the data
+			axios.post(url, user)
+			.then(response => {
+				console.log(response);
+			}).catch((error) => {
+				console.log(error);
+			});
 
 			// If you look in the Network tab, you'll see that 
 			// this code actually triggered two request (the first is called a pre-flight check to see if the server allows POSTS)
@@ -102,13 +113,30 @@
 
 			// PUT Requests (for updating data on the server)
 			// Note that the ID of the user to update is in the URL
-			url = 'http://localhost:3000/users/6/';
+			url = 'http://localhost:3000/users/6/'; //update you'll do a put request
+			const fred = {
+				name: "Fred"
+			}
+
+			axios.put(url, fred)
+			.then((response) => {
+				console.log(response);
+			}).catch(error => {
+				console.log(error);
+			});
 			
 
 
 
 			// DELETE Requests (for deleting data on the server)
 			url = 'http://localhost:3000/users/7/';
+			axios.delete(url)
+			.then(respsone => {
+				console.log(respsone)
+			})
+			.catch(error => {
+				console.log(error);
+			});
 			
 
 
@@ -123,7 +151,12 @@
 			// Note that by setting the Accept header in the request, you are telling the server that you want the data formatted as XML
 			// But JSON server ignores this, and sends the data in JSON
 			// A robust API will return it's data in various formats
-
+			axios.get(url, options)
+			.then(respsone => {
+				console.log(respsone);
+			}).catch((error) => {
+				console.log(error);
+			});
 			
 
 	  		// Make sure to look at the request in the Network tab of the dev tools
@@ -145,7 +178,7 @@
 			  headers: {'X-Custom-Header': 'foobar'}
 			});
            	// Now you don't have to specify the full URL in each request
-
+			instance.get("/users")
 
 
 
