@@ -108,8 +108,8 @@ app.component("user-form", {
                 </div>
             </form>
         </div>`,
-    methods:{
-        handleSubmit(){
+    methods:{ // v-if, v-for, @click
+        handleSubmit(){ 
             this.$emit('user-form-submitted', this.user);
         },
         handleDeleteClick(){

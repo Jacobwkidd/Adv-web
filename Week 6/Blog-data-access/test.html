@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Testing Blog Data Access</title>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script type="module">
+
+		import {getAllPosts, getPostById} from './blog-data-access.js';
+
+		window.addEventListener("load", () => {
+
+			// TODO: Put code here
+
+            const btnGetAll = document.querySelector("[name=btnGetAll]");
+
+                btnGetAll.addEventListener("click", ()=>{
+
+                getAllPosts().then(resp => console.log("RESPONSE:", resp))
+
+            });
+
+			function errorHandler(err){
+				console.log("ERROR (in blog-data-access):", err.message);
+				throw new Error(err); // because we throw an error here, we can catch it in our components.
+			}
+
+
+		});
+
+	</script>
+</head>
+<body>
+	<input type="button" name="btnGetAll" value="Get All Posts">
+	<br>
+	<input type="button" name="btnGetById" value="Get Post By ID">
+	<br>
+</body>
+</html>

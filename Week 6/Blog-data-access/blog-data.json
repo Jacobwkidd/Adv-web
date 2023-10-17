@@ -1,0 +1,39 @@
+{
+	"pages":[
+		{
+			"id":1,
+			"url":"css/some-sample-css-page.html",
+			"title":"Sample CSS Post",
+			"category":"css",
+			"description":"Some post about CSS",
+			"published":"2023-06-21",
+			"metadata":{"author":"Lee Yuan", "authorId": 3},
+			"content":"<h3>Something about CSS</h3><p>Here is some content</p>"
+		},
+		{
+			"id":2,
+			"url":"html/some-sample-html-page.html",
+			"title":"Sample HTML Post",
+			"category":"html",
+			"description":"Some post about HTML",
+			"published":"2023-06-22",
+			"metadata":{"author":"Erin Robilla", "authorId": 2},
+			"content":"<h3>Something about HTML</h3><p>Here is some content</p>"
+		},
+		{
+			"id":3,
+			"url":"css/some-sample-js-page.html",
+			"title":"Sample JS Post",
+			"category":"javascript",
+			"description":"Some post about JavaScript",
+			"published":"2023-06-23",
+			"metadata":{"author":"Sue Green", "authorId": 1},
+			"content":"<h3>Something about JS</h3><p>Here is some content</p>"
+		}
+	],
+	"authors":[
+		{"id":1, "firstName":"Sue", "lastName":"Green", "email":"sg@sg.com"},
+		{"id":2, "firstName":"Erin", "lastName":"Robilla", "email":"er@er.com"},
+		{"id":3, "firstName":"Lee", "lastName":"Yuan", "email":"ly@ly.com"}
+	]
+}
