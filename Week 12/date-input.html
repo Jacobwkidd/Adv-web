@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Inputs</title>
+    <script>
+        window.addEventListener("load", () => {
+            const dateInput = document.getElementById("someDate");
+            console.log(dateInput);
+            dateInput.value = "2022-12-31";
+            const form = document.getElementById("someForm");
+            console.log(form);
+
+            form.addEventListener("submit", (evt) => {
+                evt.preventDefault();
+                alert(dateInput.value);
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <form action="" id="someForm">
+        <input type="date" id="someDate">
+        <input type="submit">
+    </form>
+
+    
+
+</body>
+</html>
