@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optional Chaining Operator</title>
+    <script>
+        //complex object
+        const house = {
+            kitchen:{
+                sink:{
+                    type: "porcelain"
+                }
+            }
+        };    
+
+        console.log(house.kitchen.sink.type);
+        console.log(house["kitchen"]["sink"]["type"]);
+
+
+        const strings = ["red", "blue", "green"];
+        console.log(strings[1]);
+
+        console.log(house.bathroom?.sink);
+
+        //heres what we did before the ?
+        if(house.bathroom){
+            console.log(house.bathroom.sink);
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
